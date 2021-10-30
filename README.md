@@ -14,7 +14,7 @@
 	password    = "e10adc3949ba59abbe56e057f20f883e"                        //密码md5 32位
 	questionid  = "1"                                                       //安全问题ID，默认0为未设置
 	answer      = "kosad"                                                  	//安全问题答案
-	//支持新老key，SCU/SCT，推荐用新的SCT，server酱app贼好用，SCUkey会限制推送的次数好像是100条，新的SCT好像是1000条管够
+	//支持server酱的SCU/SCT的key，和push+的Token
 	sendkey     = "SCUxxxxxxxxxxxxxxxxxxx" 									//Server酱sendkey
 	Url         = "https://www.t00ls.cc/All-articles.json"                  //api的url
 	ToolsUrl    = "https://www.t00ls.cc"                                    //tools的url
