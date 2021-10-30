@@ -20,7 +20,7 @@ const (
 	password    = "e10adc3949ba59abbe56e057f20f883e"       //密码md5 32位
 	questionid  = "1"                                      //安全问题ID，默认0为未设置
 	answer      = "kosakd"                                 //安全问题答案
-	Sendkey     = "SCUxxxxxxxxxxxxxxxxxxx"                 //Server酱sendkey
+	Sendkey     = "SCUxxxxxxxxxxxxxxxxxxx"                 //Server酱sendkey 支持新老key，SCU/SCT，推荐用新的SCT，server酱app贼好用，SCUkey会限制推送的次数好像是100条，新的SCT好像是1000条管够
 	Url         = "https://www.t00ls.cc/All-articles.json" //api的url
 	ToolsUrl    = "https://www.t00ls.cc"                   //tools的url
 	Pages       = 10                                       //获取的页数
@@ -90,13 +90,13 @@ func ajaxsign(r Response, client *http.Client) {
 	json.NewDecoder(resp.Body).Decode(&sign)
 	if sign.Status == "success" {
 		fmt.Println("1.签到成功")
-		PutApi.Push(time.Now().Format("2006/01/02 15:04")+" 1.签到成功", "tools签到", Sendkey)
+		PutApi.Push(time.Now().Format("2006/01/02 15:04")+" 1.签到成功", "tools签到", Sendkey, PutApi.GetSckey(Sendkey))
 	} else if sign.Message == "alreadysign" {
 		fmt.Println("2.今日已完成签到。")
-		PutApi.Push(time.Now().Format("2006/01/02 15:04")+" 2.今日已完成签到", "tools签到", Sendkey)
+		PutApi.Push(time.Now().Format("2006/01/02 15:04")+" 2.今日已完成签到", "tools签到", Sendkey, PutApi.GetSckey(Sendkey))
 	} else {
 		fmt.Println("签到失败，1小时后重试。")
-		PutApi.Push(time.Now().Format("2006/01/02 15:04")+" 3.签到失败，", "tools签到，1小时后重试或手动签到", Sendkey)
+		PutApi.Push(time.Now().Format("2006/01/02 15:04")+" 3.签到失败，", "tools签到，1小时后重试或手动签到", Sendkey, PutApi.GetSckey(Sendkey))
 		time.Sleep(time.Hour)
 		ajaxsign(r, client)
 	}
@@ -155,7 +155,7 @@ OneDomainsearch:
 		}
 		if strings.Contains(string(body), res[i]) {
 			fmt.Printf("%s 域名查询成功，Tubi Get！", res[i])
-			PutApi.Push(time.Unix(time.Now().Unix(), 0).UTC().Add(8*time.Hour).Format("2006-01-02 15:04:05")+res[i]+"域名查询成功", "tools域名查询", Sendkey)
+			PutApi.Push(time.Unix(time.Now().Unix(), 0).UTC().Add(8*time.Hour).Format("2006-01-02 15:04:05")+res[i]+"域名查询成功", "tools域名查询", Sendkey, PutApi.GetSckey(Sendkey))
 			break OneDomainsearch
 		}
 	}

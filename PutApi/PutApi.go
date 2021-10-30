@@ -8,9 +8,20 @@ import (
 	"strings"
 )
 
+//判断SCKEY是新的还是旧的
+func GetSckey(Sendkey string) string {
+	if strings.Contains(Sendkey, "SCU") {
+		return "text"
+	} else if strings.Contains(Sendkey, "SCT") {
+		return "title"
+	} else {
+		panic("server酱的KEY设置有误请检查后，从新设置！！！")
+	}
+}
+
 // 方糖推送
-func Push(msg string, title string, sendkey string) {
-	url_1 := "https://sc.ftqq.com/" + sendkey + ".send?text=" + url.QueryEscape(title) + "&desp=" + url.QueryEscape(msg)
+func Push(msg string, title string, sendkey string, title_t string) {
+	url_1 := "https://sc.ftqq.com/" + sendkey + ".send?" + url.QueryEscape(title_t) + "=" + url.QueryEscape(title) + "&desp=" + url.QueryEscape(msg)
 	fmt.Println(url_1)
 	resp, err := http.Get(url_1)
 	if err != nil {

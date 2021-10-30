@@ -223,7 +223,7 @@ Again:
 		}
 		test_1 := strings.Join(test, "\n")
 		//将新获取的文章信息通过推送api，发出去
-		PutApi.Push(test_1, Articles_list_All.Articles[add_articles].Subject, A.Sendkey)
+		PutApi.Push(test_1, Articles_list_All.Articles[add_articles].Subject, A.Sendkey, PutApi.GetSckey(A.Sendkey))
 		//睡眠一秒防止，快速发包导致down包
 		time.Sleep(time.Second * 5)
 
