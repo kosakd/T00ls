@@ -32,11 +32,11 @@
 git clone https://github.com/kosakd/T00ls.git
 cd T00ls
 linux:
-go env -w linux
+go env -w GOOS=linux
 go build -o tools main.go
 chmod 777 tools&&./tools
 windows:
-go env -w windows
+go env -w GOOS=windows
 go build -o tools.exe main.go
 tools.exe
 ```
